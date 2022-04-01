@@ -5,7 +5,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: { 'maha-purple': '#93268F' },
+      colors: { 'maha-purple': '#93268F', 'maha-background': '#FBF9FA' },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
       },

@@ -74,7 +74,7 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div className="font-poppins">
+    <div className="font-poppins bg-maha-background">
       {/* Navbar */}
       {/* sidebar close button */}
       <button
@@ -187,7 +187,7 @@ export default function Home() {
                   <FontAwesomeIcon icon={faCircleInfo} />
                 </span>
               </div>
-              <div className="container bg-slate-400 rounded-md shadow h-screen">
+              <div className="container bg-white rounded-md shadow-xl min-h-screen">
                 table
               </div>
             </div>
