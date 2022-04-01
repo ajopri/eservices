@@ -85,7 +85,7 @@ export default function Register() {
               </button>
             </div>
             <p className="text-sm text-center text-gray-400">
-              <Link href="/register" passHref>
+              <Link href="/login" passHref>
                 <span className="font-light text-indigo-500 focus:text-indigo-600 focus:outline-none focus:underline hover:font-normal cursor-pointer">
                   Sign in as an existing Maha Customer
                 </span>
