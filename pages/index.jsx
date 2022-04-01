@@ -76,12 +76,6 @@ export default function Home() {
   // router
   const router = useRouter();
 
-  const columns = [
-    { name: 'ACTIONS', uid: 'actions' },
-    { name: 'P/O#', uid: 'po' },
-    { name: 'PO RECEIVED', uid: 'received' },
-    { name: 'PO STATUS', uid: 'status' },
-  ];
   const orders = [
     {
       id: 1,
@@ -324,13 +318,13 @@ export default function Home() {
                       </tr>
                     </thead>
                     <tbody>
-                      {orders.map((order, i) => (
+                      {orders.map((order) => (
                         <tr key={order.id}>
                           <td className="px-3 py-2">
                             <Tooltip content="Details" placement="right">
                               <button
                                 onClick={() =>
-                                  console.log('View user', user.id)
+                                  console.log('View user', order.id)
                                 }
                                 className="bg-gray-100 hover:bg-gray-300 text-gray-800 font-bold py-2 px-2 rounded inline-flex items-center"
                               >
