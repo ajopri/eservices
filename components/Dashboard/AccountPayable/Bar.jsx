@@ -1,7 +1,8 @@
 /* eslint-disable react/no-unstable-nested-components */
 import { ResponsiveBar } from '@nivo/bar';
 
-export default function Bar({ datas }) {
+export default function Bar({ datas, cur }) {
+  const amount = `amount${cur}`;
   const ValueOutside = ({ bars }) =>
     bars.map((bar) => {
       const {
@@ -15,11 +16,11 @@ export default function Bar({ datas }) {
       return (
         <g key={key} transform={`translate(${x}, ${y})`}>
           <text
-            transform={`translate(${width + 30}, ${height / 1.6})`}
+            transform={`translate(${width + 40}, ${height / 1.6})`}
             textAnchor="middle"
             fontSize="11px"
           >
-            {value}
+            {cur}$ {value}
           </text>
         </g>
       );
@@ -30,9 +31,9 @@ export default function Bar({ datas }) {
         width={500}
         height={140}
         data={datas}
-        keys={['amount']}
+        keys={[amount]}
         indexBy="day"
-        margin={{ top: 0, right: 130, bottom: 0, left: 12 }}
+        margin={{ top: 0, right: 80, bottom: 0, left: 0 }}
         valueScale={{ type: 'linear' }}
         layout="horizontal"
         colors={datas.map((c) => c.color)}
@@ -47,11 +48,13 @@ export default function Bar({ datas }) {
         enableGridY={false}
         role="application"
         tooltip={({ label, value }) => (
-          <span className="text-xs">
+          <span className="text-xs bg-gray-50 rounded-md py-2 px-2">
             {label}:
             <strong>
               {' '}
-              <tspan>{value}</tspan>{' '}
+              <tspan>
+                {cur}$ {value}
+              </tspan>{' '}
             </strong>
           </span>
         )}

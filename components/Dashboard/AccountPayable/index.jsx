@@ -73,7 +73,7 @@ function Table() {
 }
 
 export default function Accountpayable() {
-  const [openTab, setOpenTab] = useState('sgd');
+  const [openTab, setOpenTab] = useState('s');
   return (
     <div className="flex flex-col">
       <div className="font-semibold text-sm text-gray-600">
@@ -89,13 +89,13 @@ export default function Accountpayable() {
             <li className="-mb-px last:mr-0 flex-auto text-center">
               <a
                 className={`text-xs font-bold uppercase px-5 py-3 block leading-normal ${
-                  openTab === 1
+                  openTab === 's'
                     ? 'text-white bg-maha-purple rounded-tr-md rounded-tl-md border-b-2 border-maha-purple'
                     : 'text-gray-500 bg-white border-b-2 border-maha-purple'
                 }`}
                 onClick={(e) => {
                   e.preventDefault();
-                  setOpenTab(1);
+                  setOpenTab('s');
                 }}
                 data-toggle="tab"
                 href="#link1"
@@ -107,13 +107,13 @@ export default function Accountpayable() {
             <li className="-mb-px last:mr-0 flex-auto text-center">
               <a
                 className={`text-xs font-bold uppercase px-5 py-3 block leading-normal ${
-                  openTab === 2
+                  openTab === 'us'
                     ? 'text-white bg-maha-purple rounded-tr-md rounded-tl-md border-b-2 border-maha-purple'
                     : 'text-gray-500 bg-white border-b-2 border-maha-purple'
                 }`}
                 onClick={(e) => {
                   e.preventDefault();
-                  setOpenTab(2);
+                  setOpenTab('us');
                 }}
                 data-toggle="tab"
                 href="#link2"
@@ -124,13 +124,19 @@ export default function Accountpayable() {
             </li>
           </ul>
           <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 ">
-            <div className="px-4 flex-auto">
+            <div className="flex-auto">
               <div className="tab-content tab-space">
-                <div className={openTab === 1 ? 'block' : 'hidden'} id="link1">
-                  <Bar datas={Data} />
+                <div
+                  className={openTab === 's' ? 'block' : 'hidden'}
+                  id="link1"
+                >
+                  <Bar datas={Data} cur="S" />
                 </div>
-                <div className={openTab === 2 ? 'block' : 'hidden'} id="link2">
-                  <Bar datas={Data} />
+                <div
+                  className={openTab === 'us' ? 'block' : 'hidden'}
+                  id="link2"
+                >
+                  <Bar datas={Data} cur="US" />
                 </div>
               </div>
             </div>
