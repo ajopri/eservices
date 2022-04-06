@@ -13,11 +13,16 @@ function Tabs() {
     return str.charAt(0).toUpperCase() + lower.slice(1);
   };
   const filterItem = (curcat) => {
-    const newItem = Datas.filter(
-      (newVal) => newVal.status.includes(capitalize(curcat))
-      // comparing category for displaying data
+    const newItem = Datas.filter((newVal) =>
+      newVal.status.includes(capitalize(curcat))
     );
     setItem(newItem);
+  };
+  const handleSearch = (event) => {
+    const value = event.target.value.toLowerCase();
+    let result = [];
+    result = Datas.filter((data) => data.po.search(value) !== -1);
+    setItem(result);
   };
   return (
     <div className="flex flex-wrap">
@@ -89,6 +94,7 @@ function Tabs() {
                 type="text"
                 name="search"
                 id="search"
+                onChange={(event) => handleSearch(event)}
                 placeholder="Search"
                 className="w-full px-3 py-2 placeholder-gray-300 focus:border-green-700 border-b-2 border-gray-300 pl-7 focus:outline-none focus:ring-0 "
               />

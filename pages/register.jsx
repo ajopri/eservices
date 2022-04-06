@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function Register() {
   return (
-    <LayoutAuth>
+    <LayoutAuth pageTitle="Register">
       {/* content */}
       <div className="w-96">
         {/* title */}

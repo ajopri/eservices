@@ -4,7 +4,7 @@ import LayoutAuth from '@components/Layout/auth';
 
 export default function Login() {
   return (
-    <LayoutAuth>
+    <LayoutAuth pageTitle="Login">
       {/* content */}
       <div className="w-96">
         {/* title */}

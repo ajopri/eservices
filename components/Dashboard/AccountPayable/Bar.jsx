@@ -52,9 +52,9 @@ export default function Bar({ datas, cur }) {
             {label}:
             <strong>
               {' '}
-              <tspan>
+              <span>
                 {cur}$ {value}
-              </tspan>{' '}
+              </span>{' '}
             </strong>
           </span>
         )}

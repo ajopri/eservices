@@ -1,9 +1,17 @@
 /* eslint-disable import/no-unresolved */
 import LayoutAuth from '@components/Layout/auth';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export default function Login() {
+  const router = useRouter();
+  useEffect(() => {
+    setTimeout(() => {
+      router.push('/login');
+    }, 2000);
+  }, []);
   return (
-    <LayoutAuth>
+    <LayoutAuth pageTitle="Request Submitted">
       {/* content */}
       <div className="w-[26rem]">
         {/* title */}

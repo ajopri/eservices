@@ -55,6 +55,9 @@
                     "preferButton"
                 ]
             }
+        ],
+        "import/no-unresolved": [
+            2
         ]
     }
 }
