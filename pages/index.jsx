@@ -84,15 +84,15 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div className="font-poppins bg-maha-background min-h-screen">
+    <div className="font-poppins bg-maha-background min-h-screen w-full">
       {/* Navbar */}
 
       {/* sidebar close button */}
       <button
         type="button"
-        className={`p-4 text-gray-500 transition hover:text-maha-purple fixed z-10 ${
+        className={`p-4 text-gray-500 transition hover:text-maha-purple fixed z-50 ${
           sidebar
-            ? 'fixed left-[17rem] bg-white rounded-full shadow-lg'
+            ? 'left-[17rem] bg-white rounded-full shadow-lg'
             : 'duration-500 w-20 left-0 sm:left-16 h-16'
         }`}
         onClick={handleSidebar}
@@ -105,7 +105,7 @@ export default function Home() {
         />
       </button>
 
-      <nav className="fixed top-0 inset-x-0 h-16 pl-8 sm:pl-20 text-gray-600 text-xs bg-white font-medium flex justify-end sm:justify-between items-center shadow-md">
+      <nav className="fixed z-10 top-0 inset-x-0 h-16 pl-8 sm:pl-20 text-gray-600 text-xs bg-white font-medium flex justify-end sm:justify-between items-center shadow-md">
         {/* Search */}
         <div className="px-4 flex items-center justify-between pl-0 sm:visible invisible sm:pl-20">
           <span className="absolute text-gray-400">
@@ -138,7 +138,7 @@ export default function Home() {
 
       {/* Sidebar */}
       <aside
-        className={`hidden top-0 w-64 sm:w-20 shadow-lg text-gray-600 bg-white fixed inset-y-0 overflow-x-hidden overflow-y-hidden sm:block ${
+        className={`hidden z-10 top-0 w-64 sm:w-20 shadow-lg text-gray-600 bg-white fixed inset-y-0 overflow-x-hidden overflow-y-hidden sm:block ${
           sidebar ? 'w-20 sm:w-64 sm:block' : 'duration-500 w-20'
         }`}
       >
@@ -189,10 +189,10 @@ export default function Home() {
 
       {/* Content */}
       <div className="pt-16 sm:pl-20">
-        <div className="container px-8 py-7 flex flex-col">
+        <div className="w-full md:container md:mx-auto px-8 py-7 flex flex-col">
           <div className="text-2xl font-semibold text-gray-600">Dashboard</div>
-          <div className="flex">
-            <div className="w-7/12 mr-2">
+          <div className="flex flex-wrap sm:flex-nowrap">
+            <div className="sm:w-7/12 w-full mr-2">
               <Openorders />
             </div>
             <div className="w-5/12 ml-2">
