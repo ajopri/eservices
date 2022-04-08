@@ -26,7 +26,7 @@ export default function Bar({ datas, cur }) {
       );
     });
   return (
-    <div className="h-32">
+    <div className="h-[140px]">
       <ResponsiveBar
         width={500}
         height={140}

@@ -18,7 +18,7 @@ const Menus = [
   {
     id: 2,
     title: 'Order Management',
-    path: '/order',
+    path: '/order-management',
     icon: <FontAwesomeIcon icon={faShoppingCart} fixedWidth size="sm" />,
   },
   {

@@ -83,7 +83,7 @@ export default function Accountpayable() {
       <div>
         <div className="w-full">
           <ul
-            className="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row"
+            className="flex mb-0 list-none flex-wrap pt-3 pb-2 flex-row"
             role="tablist"
           >
             <li className="-mb-px last:mr-0 flex-auto text-center">
@@ -123,7 +123,7 @@ export default function Accountpayable() {
               </a>
             </li>
           </ul>
-          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 ">
+          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-2 ">
             <div className="flex-auto">
               <div className="tab-content tab-space">
                 <div

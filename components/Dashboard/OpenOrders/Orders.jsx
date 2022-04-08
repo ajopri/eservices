@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/button-has-type */
@@ -53,7 +54,7 @@ function OrderItem({ id, po, received, status }) {
             </button>
           </Tooltip>
         </div>
-        <div className="py-1 px-5 flex-1">{po}</div>
+        <div className="py-1 px-5 flex-1 text-blue-700 font-semibold">{po}</div>
         <div className="py-1 px-5 flex-1">{received}</div>
         <div className="py-1 px-5 flex-1">{renderCell(status)}</div>
       </div>
@@ -62,10 +63,10 @@ function OrderItem({ id, po, received, status }) {
   );
 }
 
-export default function Orders({ item }) {
+export default function Orders({ items }) {
   return (
     <div className="flex flex-col rounded-lg border-[1px] h-[64vh]">
-      <div className="py-3 bg-gray-100 text-gray-600 font-semibold text-[0.75rem] ">
+      <div className="py-3 bg-gray-100 text-gray-600 font-semibold text-[0.75rem] mb-2">
         <ul>
           <li className="flex flex-row ">
             <div className="flex-none px-7" />
@@ -75,9 +76,9 @@ export default function Orders({ item }) {
           </li>
         </ul>
       </div>
-      <div className="overflow-y-auto text-[0.7rem] pt-2">
+      <div className="overflow-y-auto text-[0.7rem]">
         <ul>
-          {item.map(({ id, po, received, status }) => (
+          {items.map(({ id, po, received, status }) => (
             <OrderItem key={id} po={po} received={received} status={status} />
           ))}
         </ul>

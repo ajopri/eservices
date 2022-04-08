@@ -102,11 +102,11 @@ function Tabs() {
           </div>
         </div>
 
-        <div className="flex flex-col min-w-0 break-words bg-white w-full mb-4">
+        <div className="flex flex-col min-w-0 break-words bg-white w-full">
           <div className="flex-auto">
             <div className="tab-content tab-space">
               <div>
-                <Orders item={item} />
+                <Orders items={item} />
               </div>
             </div>
           </div>
@@ -130,7 +130,7 @@ export default function Openorders() {
           </span>
         </Tooltip>
       </div>
-      <div className="container bg-white rounded-md shadow-xl p-4">
+      <div className="container bg-white rounded-md shadow-xl p-4 border-[1px] border-gray-200">
         <Tabs />
       </div>
     </>

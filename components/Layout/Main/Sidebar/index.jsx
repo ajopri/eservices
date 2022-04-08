@@ -37,8 +37,10 @@ export default function Sidebar() {
         />
       </button>
       <aside
-        className={`hidden z-10 top-0 w-64 sm:w-20 shadow-lg text-gray-600 bg-white fixed inset-y-0 overflow-x-hidden overflow-y-hidden sm:block ${
-          sidebar ? 'w-20 sm:w-64 sm:block' : 'duration-500 w-20'
+        className={`z-10 top-0 w-64 sm:w-20 shadow-lg text-gray-600 bg-white fixed inset-y-0 overflow-x-hidden overflow-y-hidden ${
+          sidebar
+            ? 'w-20 sm:w-64 sm:block'
+            : 'hidden sm:block duration-500 w-20'
         }`}
       >
         <div className="flex justify-center shadow mx-auto px-5 py-2.5 h-16">
@@ -57,28 +59,32 @@ export default function Sidebar() {
           {Menus.map((link) => (
             <li key={link.id}>
               <Link href={link.path} passHref>
-                <span
-                  className={`font-medium space-x-2 inline-flex px-4 transition w-full hover:text-maha-purple hover:bg-gray-100 hover:border-r-2 hover:border-maha-purple ${
-                    router.pathname === link.path
-                      ? 'text-maha-purple border-maha-purple border-r-4'
-                      : ''
-                  } ${
-                    sidebar ? 'items-center py-2' : 'py-4 mb-4 justify-center'
-                  }`}
-                >
+                <span>
                   <Tooltip
                     content={sidebar ? '' : link.title}
                     rounded
                     contentColor="secondary"
                     placement="right"
                     hideArrow
-                    offset={40}
+                    offset={20}
                   >
-                    {link.icon}
-                  </Tooltip>{' '}
-                  <span className={`${sidebar ? '' : 'hidden'} py-1.5`}>
-                    {link.title}
-                  </span>
+                    <span
+                      className={`font-medium space-x-2 flex px-4 transition w-full hover:text-maha-purple hover:bg-gray-100 hover:border-r-2 hover:border-maha-purple ${
+                        router.pathname === link.path
+                          ? 'text-maha-purple border-maha-purple border-r-4'
+                          : ''
+                      } ${
+                        sidebar
+                          ? 'items-center py-2'
+                          : 'py-4 mb-4 justify-center'
+                      }`}
+                    >
+                      {link.icon}{' '}
+                      <span className={`${sidebar ? '' : 'hidden'} py-1.5`}>
+                        {link.title}
+                      </span>
+                    </span>
+                  </Tooltip>
                 </span>
               </Link>
             </li>
