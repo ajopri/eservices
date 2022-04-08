@@ -163,7 +163,7 @@ export default function OrderManagement() {
                 <div className="text-xs font-light text-gray-500">
                   Partially Fulfilled
                 </div>
-                <div className="text-2xl font-bold">32</div>
+                <div className="text-2xl font-bold">19</div>
               </div>
             </div>
             <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 space-x-7">
@@ -174,7 +174,7 @@ export default function OrderManagement() {
                 <div className="text-xs font-light text-gray-500">
                   Fulfilled
                 </div>
-                <div className="text-2xl font-bold">32</div>
+                <div className="text-2xl font-bold">257</div>
               </div>
             </div>
           </div>
