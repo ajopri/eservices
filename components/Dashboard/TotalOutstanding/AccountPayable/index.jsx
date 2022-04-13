@@ -2,7 +2,7 @@
 /* eslint-disable import/no-named-as-default-member */
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import invoices from './Invoices';
+import invoices from './dataInvoices';
 import Data from './Data';
 
 const Bar = dynamic(() => import('./Bar'), {

@@ -123,14 +123,14 @@ export default function Openorders() {
         Open Orders{' '}
         <Tooltip
           content="Only outstanding & unfulfilled orders are displayed."
-          placement="top"
+          placement="right"
         >
           <span className="text-gray-400 ml-2">
             <FontAwesomeIcon icon={faCircleInfo} />
           </span>
         </Tooltip>
       </div>
-      <div className="container bg-white rounded-md shadow-xl p-4 border-[1px] border-gray-200">
+      <div className="container bg-white rounded-md shadow-sm p-4 border-[1px] border-gray-200">
         <Tabs />
       </div>
     </>

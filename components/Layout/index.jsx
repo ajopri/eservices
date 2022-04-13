@@ -17,8 +17,8 @@ export default function Layout({ children, pageTitle }) {
         <Sidebar />
 
         {/* Content */}
-        <div className="pt-16 sm:pl-20">
-          <div className="w-full md:mx-auto px-8 py-7 flex flex-col">
+        <div className="pt-16 sm:pl-20 h-screen">
+          <div className="w-full md:mx-auto px-8 pt-5 flex flex-col">
             <div className="text-2xl font-semibold text-gray-600">
               {pageTitle}
             </div>
