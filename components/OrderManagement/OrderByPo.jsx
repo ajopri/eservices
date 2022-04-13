@@ -100,7 +100,7 @@ function Item({ data }) {
   };
 
   return (
-    <li className="flex flex-col w-full">
+    <li key={data.poNumber} className="flex flex-col w-full hover:bg-gray-100">
       <div className="flex flex-row items-center">
         <div
           className="py-1 px-2 sm:px-5 flex-1 sm:basis-1/12"

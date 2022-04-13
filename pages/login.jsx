@@ -71,7 +71,7 @@ export default function Login() {
               </button>
             </div>
             <p className="text-sm text-center text-gray-400">
-              <Link href="/register">
+              <Link href="/register" passHref>
                 <span className="font-light text-indigo-500 focus:text-indigo-600 focus:outline-none focus:underline hover:font-normal cursor-pointer">
                   Register for a customer account
                 </span>

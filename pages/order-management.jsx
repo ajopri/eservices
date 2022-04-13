@@ -64,7 +64,9 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
         <div className="basis-4/5 bg-white rounded-sm shadow border-[1px] border-gray-50 py-2 px-3">
           <div className="flex flex-wrap">
             <div className="w-full">
+              {/* Filter */}
               <div className="flex items-center text-xs mb-2 space-x-1">
+                {/* Tabs */}
                 <div className="w-2/4 flex items-center justify-start font-semibold text-gray-600">
                   <ul className="flex mb-0 list-none flex-row" role="tablist">
                     <li className="-mb-px last:mr-0 flex-auto text-center">
@@ -81,7 +83,7 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
                           setsearchVal('');
                         }}
                         data-toggle="tab"
-                        href="#link1"
+                        href="#byItem"
                         role="tablist"
                       >
                         <span className="whitespace-nowrap">By Item</span>
@@ -110,7 +112,7 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
                           setsearchVal('');
                         }}
                         data-toggle="tab"
-                        href="#link2"
+                        href="#byPo"
                         role="tablist"
                       >
                         <span className="whitespace-nowrap">By PO</span>
@@ -127,6 +129,7 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
                     </li>
                   </ul>
                 </div>
+                {/* Search */}
                 <div className="w-2/4 flex justify-end invisible sm:visible">
                   <div>
                     <span className="pointer-events-none absolute text-gray-300 transform translate-y-1/2">
@@ -147,18 +150,19 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
                   </div>
                 </div>
               </div>
+              {/* Content */}
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full">
                 <div className="flex-auto">
                   <div className="tab-content tab-space">
                     <div
                       className={openTab === 'item' ? 'block' : 'hidden'}
-                      id="link1"
+                      id="byItem"
                     >
                       <OrderByItem datas={filteredListItem} />
                     </div>
                     <div
                       className={openTab === 'po' ? 'block' : 'hidden'}
-                      id="link2"
+                      id="byPo"
                     >
                       <OrderByPo datas={filteredListPo} />
                     </div>
@@ -168,6 +172,7 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
             </div>
           </div>
         </div>
+        {/* Summary */}
         <div className="basis-1/5 bg-white rounded-sm shadow border-[1px] border-gray-50 py-2 px-3">
           <div className="flex flex-col sm:h-full h-96">
             <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 border-b-[1px] border-gray-200 space-x-7">
@@ -223,12 +228,12 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
 export async function getServerSideProps() {
   // Fetch data from external API
   const resPo = await fetch(
-    'http://159.138.122.186:86/Api/Orders/GetOrdersByPO?rcc=MCA&custgroup=3M group'
+    'http://159.138.122.186:86/Api/Orders/GetOrdersByPO?rcc=MCA&custgroup=NIPPON'
   );
   const dataOrderByPo = await resPo.json();
 
   const resItem = await fetch(
-    'http://159.138.122.186:86/Api/Orders/GetOrdersByItem?rcc=MCA&custgroup=3M Group'
+    'http://159.138.122.186:86/Api/Orders/GetOrdersByItem?rcc=MCA&custgroup=NIPPON'
   );
   const dataOrderByItem = await resItem.json();
 
