@@ -36,7 +36,7 @@ function OrderItem({ id, po, received, status }) {
   };
 
   return (
-    <li key={id} className="flex flex-col w-full">
+    <li key={id} className="flex flex-col w-full hover:bg-gray-100">
       <div className="flex flex-row items-center">
         <div className="py-1 px-5 flex-none " onClick={handleClick}>
           <Tooltip content="Details" placement="left">

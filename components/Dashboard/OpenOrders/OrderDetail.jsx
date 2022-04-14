@@ -47,7 +47,7 @@ export default function Orderdetail({ isExpanded }) {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b-[1px] border-gray-200">
+            <tr className="bg-white border-b-[1px] border-gray-200 hover:bg-gray-100">
               <td className="px-3 py-2">CAB-O-SIL M5</td>
               <td className="px-3 py-2">500 KG</td>
               <td className="px-3 py-2">500 KG</td>
@@ -55,7 +55,7 @@ export default function Orderdetail({ isExpanded }) {
               <td className="px-3 py-2">{renderStat('Unfulfilled')}</td>
               <td className="px-3 py-2">{renderDate('14/02/22 - TBA')}</td>
             </tr>
-            <tr className="bg-white border-b-[1px] border-gray-200">
+            <tr className="bg-white border-b-[1px] border-gray-200 hover:bg-gray-100">
               <td className="px-3 py-2">CAB-O-SIL M5</td>
               <td className="px-3 py-2">500 KG</td>
               <td className="px-3 py-2">500 KG</td>
@@ -63,7 +63,7 @@ export default function Orderdetail({ isExpanded }) {
               <td className="px-3 py-2">{renderStat('Fulfilled')}</td>
               <td className="px-3 py-2">{renderDate('14/04/22 - TBA')}</td>
             </tr>
-            <tr className="bg-white border-b-[1px] border-gray-200">
+            <tr className="bg-white border-b-[1px] border-gray-200 hover:bg-gray-100">
               <td className="px-3 py-2">CAB-O-SIL M5</td>
               <td className="px-3 py-2">500 KG</td>
               <td className="px-3 py-2">500 KG</td>

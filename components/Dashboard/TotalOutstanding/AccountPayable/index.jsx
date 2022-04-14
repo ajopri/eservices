@@ -54,7 +54,7 @@ function Table() {
         </thead>
         <tbody>
           {invoices.map((inv) => (
-            <tr key={inv.id}>
+            <tr key={inv.id} className="hover:bg-gray-100">
               <td className="px-3 py-2">
                 <span className="font-semibold text-blue-800">{inv.inv}</span>
               </td>

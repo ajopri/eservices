@@ -1,37 +1,45 @@
+/* eslint-disable prefer-const */
 /* eslint-disable import/no-unresolved */
-import {
-  faCircleInfo,
-  faExclamationTriangle,
-  faMoneyCheckAlt,
-  faSearch,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCircleInfo, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from '@nextui-org/react';
 import Account from '@components/Dashboard/TotalOutstanding/AccountPayable/Account';
 import Layout from '@components/Layout';
-import { useState } from 'react';
-import Orders from '@components/Dashboard/OpenOrders/Orders';
-import Datas from '../components/Dashboard/OpenOrders/Data';
+import { useEffect, useState } from 'react';
+import Statement from '@components/Invoices/Statement';
+import Profileinvoice from '@components/Invoices/ProfileInvoice';
+import Listinvoices from '@components/Invoices/ListInvoices';
 
-export default function Invoices() {
-  const [item, setItem] = useState(Datas);
+export default function Invoices({ dataInvoices }) {
+  const [item, setItem] = useState(dataInvoices.data);
   const [orderStat, setOrderStat] = useState('all');
-  const capitalize = (str) => {
-    const lower = str.toLowerCase();
-    return str.charAt(0).toUpperCase() + lower.slice(1);
-  };
-  const filterItem = (curcat) => {
-    const newItem = Datas.filter((newVal) =>
-      newVal.status.includes(capitalize(curcat))
+
+  const [statOverdue, setStatOverdue] = useState(0);
+  const [statPaid, setStatPaid] = useState(0);
+  const [statOutstanding, setStatOutstanding] = useState(0);
+
+  const filterItem = (stat) => {
+    const newItem = dataInvoices.data.filter((newVal) =>
+      newVal.invStatus.includes(stat)
     );
     setItem(newItem);
+    return newItem;
   };
+
+  useEffect(() => setStatOverdue(() => filterItem('OverDue')), []);
+  useEffect(() => setStatPaid(() => filterItem('Paid')), []);
+  useEffect(() => setStatOutstanding(() => filterItem('Outstanding')), []);
+
   const handleSearch = (event) => {
-    const value = event.target.value.toLowerCase();
-    let result = [];
-    result = Datas.filter((data) => data.po.search(value) !== -1);
+    let result;
+    const { value } = event.target;
+    result = dataInvoices.data.filter(
+      (data) => data.invNumber === parseInt(value, 10)
+    );
+
     setItem(result);
   };
+
   const profile = (
     <span>
       Summary of your credit terms, total overdue and
@@ -39,18 +47,13 @@ export default function Invoices() {
       outstanding invoices
     </span>
   );
-  const statement = (
-    <div>
-      Overall statement of accounts for orders transacted
-      <br />
-      in both local and US currency.
-    </div>
-  );
+
   return (
     <Layout pageTitle="Invoices">
       <div className="flex flex-wrap sm:flex-nowrap sm:space-x-3 space-x-0">
         <div className="w-full sm:w-5/6 flex flex-col sm:flex-nowrap flex-wrap">
           <div className="flex flex-wrap sm:flex-nowrap space-x-3">
+            {/* Profile */}
             <div className="w-full sm:w-3/5">
               {/* Title */}
               <div className="py-3 font-semibold text-maha-purple flex items-center">
@@ -62,61 +65,10 @@ export default function Invoices() {
                 </Tooltip>
               </div>
 
-              {/* Summary */}
-              <div className="grid sm:grid-cols-3 grid-cols-1 sm:gap-3 gap-0 space-y-3 sm:space-y-0 min-h-[5.5rem]">
-                <div className="flex items-center bg-white rounded-md border-[1px] border-gray-200 px-5 py-3">
-                  <div className="flex w-full space-x-4 justify-center">
-                    <span className="bg-maha-purple bg-opacity-10 text-maha-purple px-3 py-3 rounded-full">
-                      <FontAwesomeIcon
-                        icon={faMoneyCheckAlt}
-                        size="lg"
-                        fixedWidth
-                      />
-                    </span>
-                    <div>
-                      <div className="text-xs font-light text-gray-500">
-                        Credit Terms
-                      </div>
-                      <div className="text-2xl font-bold">90 days</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center bg-white rounded-md border-[1px] border-gray-200 px-5 py-3 col-span-2">
-                  {/* Overdue */}
-                  <div className="flex w-full justify-center space-x-4 border-r-[1px] border-gray-300">
-                    <span className="bg-red-100 text-red-600 px-3 py-3 rounded-full">
-                      <FontAwesomeIcon
-                        icon={faExclamationTriangle}
-                        size="lg"
-                        fixedWidth
-                      />
-                    </span>
-                    <div>
-                      <div className="text-xs font-light text-gray-500">
-                        Overdue
-                      </div>
-                      <div className="text-2xl font-bold">32</div>
-                    </div>
-                  </div>
-                  {/* Outstanding */}
-                  <div className="flex w-full justify-center space-x-4 border-l-[1px] border-gray-300">
-                    <span className="bg-orange-100 text-orange-600 px-3 py-3 rounded-full">
-                      <FontAwesomeIcon
-                        icon={faMoneyCheckAlt}
-                        size="lg"
-                        fixedWidth
-                      />
-                    </span>
-                    <div>
-                      <div className="text-xs font-light text-gray-500">
-                        Outstanding
-                      </div>
-                      <div className="text-2xl font-bold">4</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/* Profile Summary */}
+              <Profileinvoice />
             </div>
+            {/* Total outstanding */}
             <div className="w-full sm:w-2/5">
               {/* Title */}
               <div className="py-3 font-semibold text-maha-purple flex items-center">
@@ -155,7 +107,7 @@ export default function Invoices() {
                                 : `text-gray-400`
                             }`}
                             onClick={() => {
-                              setItem(Datas);
+                              setItem(dataInvoices.data);
                               setOrderStat('all');
                             }}
                           >
@@ -167,7 +119,7 @@ export default function Invoices() {
                                   : 'bg-gray-100'
                               } px-1 py-0.5 rounded-md`}
                             >
-                              32
+                              {dataInvoices.data.length}
                             </span>
                           </button>
                         </li>
@@ -175,24 +127,74 @@ export default function Invoices() {
                           <button
                             type="button"
                             className={`text-xs font-bold px-5 py-3 block leading-normal ${
-                              orderStat === 'scheduled'
+                              orderStat === 'OverDue'
                                 ? `text-gray-600 border-b-2 border-green-600`
                                 : `text-gray-400`
                             }`}
                             onClick={() => {
-                              filterItem('scheduled');
-                              setOrderStat('scheduled');
+                              filterItem('OverDue');
+                              setOrderStat('OverDue');
                             }}
                           >
-                            <span>Scheduled</span>{' '}
+                            <span>OverDue</span>{' '}
                             <span
                               className={`${
-                                orderStat === 'scheduled'
+                                orderStat === 'OverDue'
                                   ? 'bg-green-50 text-green-600'
                                   : 'bg-gray-100'
                               } px-1 py-0.5 rounded-md`}
                             >
-                              32
+                              {statOverdue.length}
+                            </span>
+                          </button>
+                        </li>
+                        <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                          <button
+                            type="button"
+                            className={`text-xs font-bold px-5 py-3 block leading-normal ${
+                              orderStat === 'Outstanding'
+                                ? `text-gray-600 border-b-2 border-green-600`
+                                : `text-gray-400`
+                            }`}
+                            onClick={() => {
+                              filterItem('Outstanding');
+                              setOrderStat('Outstanding');
+                            }}
+                          >
+                            <span>Outstanding</span>{' '}
+                            <span
+                              className={`${
+                                orderStat === 'Outstanding'
+                                  ? 'bg-green-50 text-green-600'
+                                  : 'bg-gray-100'
+                              } px-1 py-0.5 rounded-md`}
+                            >
+                              {statOutstanding.length}
+                            </span>
+                          </button>
+                        </li>
+                        <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                          <button
+                            type="button"
+                            className={`text-xs font-bold px-5 py-3 block leading-normal ${
+                              orderStat === 'Paid'
+                                ? `text-gray-600 border-b-2 border-green-600`
+                                : `text-gray-400`
+                            }`}
+                            onClick={() => {
+                              filterItem('Paid');
+                              setOrderStat('Paid');
+                            }}
+                          >
+                            <span>Paid</span>{' '}
+                            <span
+                              className={`${
+                                orderStat === 'Paid'
+                                  ? 'bg-green-50 text-green-600'
+                                  : 'bg-gray-100'
+                              } px-1 py-0.5 rounded-md`}
+                            >
+                              {statPaid.length}
                             </span>
                           </button>
                         </li>
@@ -214,12 +216,12 @@ export default function Invoices() {
                       </div>
                     </div>
                   </div>
-
+                  {/* Invoices */}
                   <div className="flex flex-col min-w-0 break-words bg-white w-full">
                     <div className="flex-auto">
                       <div className="tab-content tab-space">
                         <div>
-                          <Orders items={item} />
+                          <Listinvoices datas={item} />
                         </div>
                       </div>
                     </div>
@@ -229,25 +231,25 @@ export default function Invoices() {
             </div>
           </div>
         </div>
-        <div className="w-full sm:w-1/6">
-          {/* Title */}
-          <div className="py-3 font-semibold text-maha-purple flex items-center">
-            Statement of Accounts{' '}
-            <Tooltip content={statement} placement="bottom" keepMounted>
-              <span className="text-gray-400 ml-2">
-                <FontAwesomeIcon icon={faCircleInfo} />
-              </span>
-            </Tooltip>
-          </div>
-          <div className="bg-white border-[1px] border-gray-200 py-4 px-4">
-            <div className="flex">
-              <div className="bg-gray-200 text-center uppercase text-xs font-semibold text-gray-500 px-2 py-0.5 rounded-full w-full">
-                MONTHLY SOA DOCUMENTS
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Statement */}
+        <Statement />
       </div>
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  try {
+    const res = await fetch(
+      'http://159.138.122.186:86/Api/Invoices/GetAllInvoices?rcc=MCA&custgroup=NIPPON'
+    );
+    const dataInvoices = await res.json();
+
+    return {
+      props: { dataInvoices },
+    };
+  } catch (error) {
+    console.error('Error fetching invoice data', error);
+    return { notFound: true };
+  }
 }
