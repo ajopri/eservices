@@ -16,7 +16,7 @@ export default function Login() {
             Please sign in to continue
           </p>
         </div>
-        <div className="w-80">
+        <div className="w-[21rem]">
           <form className="mb-4">
             <div className="mb-3">
               <input
@@ -63,19 +63,24 @@ export default function Login() {
               </div>
             </div>
             <div className="mb-6">
-              <button
-                type="button"
-                className="w-full px-3 py-3 text-white bg-maha-purple rounded-full hover:opacity-70 focus:outline-none duration-100 ease-in-out uppercase"
-              >
-                sign in
-              </button>
-            </div>
-            <p className="text-sm text-center text-gray-400">
-              <Link href="/register" passHref>
-                <span className="font-light text-indigo-500 focus:text-indigo-600 focus:outline-none focus:underline hover:font-normal cursor-pointer">
-                  Register for a customer account
-                </span>
+              <Link href="/" passHref>
+                <button
+                  type="button"
+                  className="w-full px-3 py-3 text-white bg-maha-purple rounded-full hover:opacity-70 focus:outline-none duration-100 ease-in-out uppercase"
+                >
+                  sign in
+                </button>
               </Link>
+            </div>
+            <p className="text-xs text-left text-gray-400">
+              <span>
+                This portal is reserved for MahaChem customers only.{' '}
+                <Link href="/" passHref>
+                  <span className="font-light text-indigo-500 focus:text-indigo-600 focus:outline-none focus:underline hover:font-normal cursor-pointer">
+                    Learn more
+                  </span>
+                </Link>
+              </span>
             </p>
           </form>
         </div>

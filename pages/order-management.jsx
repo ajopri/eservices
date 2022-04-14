@@ -155,19 +155,14 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
               {/* Content */}
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full">
                 <div className="flex-auto">
-                  <div className="tab-content tab-space">
-                    <div
-                      className={openTab === 'item' ? 'block' : 'hidden'}
-                      id="byItem"
-                    >
-                      <OrderByItem datas={filteredListItem} />
-                    </div>
-                    <div
-                      className={openTab === 'po' ? 'block' : 'hidden'}
-                      id="byPo"
-                    >
-                      <OrderByPo datas={filteredListPo} />
-                    </div>
+                  <div
+                    className={openTab === 'item' ? '' : 'hidden'}
+                    id="byItem"
+                  >
+                    <OrderByItem datas={filteredListItem} />
+                  </div>
+                  <div className={openTab === 'po' ? '' : 'hidden'} id="byPo">
+                    <OrderByPo datas={filteredListPo} />
                   </div>
                 </div>
               </div>
@@ -177,7 +172,7 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
         {/* Summary */}
         <div className="basis-1/5 bg-white rounded-sm shadow border-[1px] border-gray-50 py-2 px-3">
           <div className="flex flex-col sm:h-full h-96">
-            <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 border-b-[1px] border-gray-200 space-x-7">
+            <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 sm:px-0 px-32 whitespace-nowrap border-b-[1px] border-gray-200 space-x-7">
               <span className="bg-red-100 text-red-600 px-3.5 py-3 rounded-full">
                 <FontAwesomeIcon icon={faBoxOpen} fixedWidth />
               </span>
@@ -190,7 +185,7 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
                 </div>
               </div>
             </div>
-            <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 border-b-[1px] border-gray-200 space-x-7">
+            <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 sm:px-0 px-32 whitespace-nowrap border-b-[1px] border-gray-200 space-x-7">
               <span className="bg-maha-purple bg-opacity-10 text-maha-purple px-3.5 py-3 rounded-full">
                 <FontAwesomeIcon icon={faCalendarWeek} fixedWidth />
               </span>
@@ -203,7 +198,7 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
                 </div>
               </div>
             </div>
-            <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 border-b-[1px] border-gray-200 space-x-7">
+            <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 sm:px-0 px-32 whitespace-nowrap border-b-[1px] border-gray-200 space-x-7">
               <span className="bg-orange-100 text-orange-600 px-3.5 py-3 rounded-full">
                 <FontAwesomeIcon icon={faBoxes} fixedWidth />
               </span>
@@ -216,7 +211,7 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
                 </div>
               </div>
             </div>
-            <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 space-x-7">
+            <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 sm:px-0 px-32 whitespace-nowrap space-x-7">
               <span className="bg-green-100 text-green-600 px-3.5 py-3 rounded-full">
                 <FontAwesomeIcon icon={faCalendarCheck} fixedWidth />
               </span>

@@ -1,13 +1,14 @@
 /* eslint-disable import/no-unresolved */
 import LayoutAuth from '@components/Layout/auth';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-export default function Login() {
+export default function Activated() {
   const router = useRouter();
   useEffect(() => {
     setTimeout(() => {
-      router.push('/login');
+      router.push('/');
     }, 2000);
   }, []);
   return (
@@ -16,22 +17,22 @@ export default function Login() {
       <div className="w-[26rem]">
         {/* title */}
         <div className="text-left mb-8">
-          <h1 className="text-3xl font-bold text-gray-700">
-            Thank you for your submission!
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-700">Welcome, Lily!</h1>
           <p className="text-sm text-gray-500 mt-2">
-            An administrator will review your request before approval. Please
-            check your email for the account verification.
+            Thank you for activating your account. You may now login anytime to
+            get exclusive information and updates on orders.
           </p>
         </div>
         <div className="w-80">
           <div className="mb-6">
-            <button
-              type="button"
-              className="w-full px-3 py-3 text-white bg-maha-purple rounded-full hover:opacity-70 focus:outline-none duration-100 ease-in-out uppercase"
-            >
-              return home
-            </button>
+            <Link href="/" passHref>
+              <button
+                type="button"
+                className="w-full px-3 py-3 text-white bg-maha-purple rounded-full hover:opacity-70 focus:outline-none duration-100 ease-in-out uppercase"
+              >
+                continue
+              </button>
+            </Link>
           </div>
         </div>
       </div>
