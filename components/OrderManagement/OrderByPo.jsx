@@ -73,11 +73,17 @@ function OrderDetails({ parentExpanded, details }) {
             {details.map((detail, idx) => (
               <tr key={idx} className="bg-white border-b-[1px] border-gray-200">
                 <td className="px-3 py-2">{detail.itemName}</td>
-                <td className="px-3 py-2">{detail.openQty}</td>
-                <td className="px-3 py-2">{detail.totalQty}</td>
-                <td className="px-3 py-2">{detail.unitPrice}</td>
+                <td className="px-3 py-2">{detail.openQty.toLocaleString()}</td>
                 <td className="px-3 py-2">
-                  {`${detail.currency} $${detail.totalInvoice}/${detail.uoM}`}
+                  {detail.totalQty.toLocaleString()}
+                </td>
+                <td className="px-3 py-2">
+                  {detail.unitPrice.toLocaleString()}
+                </td>
+                <td className="px-3 py-2">
+                  {`${
+                    detail.currency
+                  } $${detail.totalInvoice.toLocaleString()}/${detail.uoM}`}
                 </td>
                 <td className="px-3 py-2">{renderStat(detail.itemStatus)}</td>
                 <td className="px-3 py-2">

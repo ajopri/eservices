@@ -1,4 +1,5 @@
 /* eslint-disable import/no-unresolved */
+/* eslint-disable no-console */
 import Layout from '@components/Layout';
 import OrderByItem from '@components/OrderManagement/OrderByItem';
 import OrderByPo from '@components/OrderManagement/OrderByPo';
@@ -24,13 +25,14 @@ const tooltips = (
 export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
   const [openTab, setOpenTab] = useState('item');
   const [searchVal, setsearchVal] = useState('');
+
   const [filteredListItem, setFilteredListItem] = useState(
     dataOrderByItem.data
   );
   const [filteredListPo, setFilteredListPo] = useState(dataOrderByPo.data);
   const handleSearch = (event, by) => {
+    let result;
     const value = event.target.value.toUpperCase();
-    let result = [];
     if (by === 'item') {
       result = dataOrderByItem.data.filter(
         (data) =>
@@ -183,7 +185,9 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
                 <div className="text-xs font-light text-gray-500">
                   Unfulfilled
                 </div>
-                <div className="text-2xl font-bold">32</div>
+                <div className="text-2xl font-bold">
+                  {dataOrderByPo.data[0].unfulfilled}
+                </div>
               </div>
             </div>
             <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 border-b-[1px] border-gray-200 space-x-7">
@@ -194,7 +198,9 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
                 <div className="text-xs font-light text-gray-500">
                   Scheduled
                 </div>
-                <div className="text-2xl font-bold">4</div>
+                <div className="text-2xl font-bold">
+                  {dataOrderByPo.data[0].scheduled}
+                </div>
               </div>
             </div>
             <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 border-b-[1px] border-gray-200 space-x-7">
@@ -205,7 +211,9 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
                 <div className="text-xs font-light text-gray-500">
                   Partially Fulfilled
                 </div>
-                <div className="text-2xl font-bold">19</div>
+                <div className="text-2xl font-bold">
+                  {dataOrderByPo.data[0].partially}
+                </div>
               </div>
             </div>
             <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 space-x-7">
@@ -216,7 +224,9 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
                 <div className="text-xs font-light text-gray-500">
                   Fulfilled
                 </div>
-                <div className="text-2xl font-bold">257</div>
+                <div className="text-2xl font-bold">
+                  {dataOrderByPo.data[0].fulfilled}
+                </div>
               </div>
             </div>
           </div>
@@ -225,17 +235,24 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
     </Layout>
   );
 }
-export async function getServerSideProps() {
-  // Fetch data from external API
-  const resPo = await fetch(
-    'http://159.138.122.186:86/Api/Orders/GetOrdersByPO?rcc=MCA&custgroup=NIPPON'
-  );
-  const dataOrderByPo = await resPo.json();
 
-  const resItem = await fetch(
-    'http://159.138.122.186:86/Api/Orders/GetOrdersByItem?rcc=MCA&custgroup=NIPPON'
-  );
-  const dataOrderByItem = await resItem.json();
+export async function getStaticProps() {
+  try {
+    const resPo = await fetch(
+      'http://159.138.122.186:86/Api/Orders/GetOrdersByPO?rcc=MCA&custgroup=NIPPON'
+    );
+    const dataOrderByPo = await resPo.json();
 
-  return { props: { dataOrderByPo, dataOrderByItem } };
+    const resItem = await fetch(
+      'http://159.138.122.186:86/Api/Orders/GetOrdersByItem?rcc=MCA&custgroup=NIPPON'
+    );
+    const dataOrderByItem = await resItem.json();
+
+    return {
+      props: { dataOrderByPo, dataOrderByItem },
+    };
+  } catch (error) {
+    console.error('Error fetching homepage data', error);
+    return { notFound: true };
+  }
 }

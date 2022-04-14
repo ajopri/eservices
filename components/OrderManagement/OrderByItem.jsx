@@ -80,11 +80,17 @@ function OrderDetails({ parentExpanded, details }) {
                 <td className="px-3 py-2">
                   {renderDateReceive(detail.poReceived)}
                 </td>
-                <td className="px-3 py-2">{detail.openQty}</td>
-                <td className="px-3 py-2">{detail.totalQty}</td>
-                <td className="px-3 py-2">{detail.unitPrice}</td>
+                <td className="px-3 py-2">{detail.openQty.toLocaleString()}</td>
                 <td className="px-3 py-2">
-                  {`${detail.currency} $${detail.totalInvoice}/${detail.uoM}`}
+                  {detail.totalQty.toLocaleString()}
+                </td>
+                <td className="px-3 py-2">
+                  {detail.unitPrice.toLocaleString()}
+                </td>
+                <td className="px-3 py-2">
+                  {`${
+                    detail.currency
+                  } $${detail.totalInvoice.toLocaleString()}/${detail.uoM}`}
                 </td>
                 <td className="px-3 py-2">{renderStat(detail.itemStatus)}</td>
                 <td className="px-3 py-2">
