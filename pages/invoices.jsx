@@ -10,8 +10,8 @@ import Statement from '@components/Invoices/Statement';
 import Profileinvoice from '@components/Invoices/ProfileInvoice';
 import Listinvoices from '@components/Invoices/ListInvoices';
 
-export default function Invoices({ dataInvoices }) {
-  const [item, setItem] = useState(dataInvoices.data);
+export default function Invoices({ accountPayable, dataInv }) {
+  const [item, setItem] = useState(dataInv.data);
   const [orderStat, setOrderStat] = useState('all');
 
   const [statOverdue, setStatOverdue] = useState(0);
@@ -19,7 +19,7 @@ export default function Invoices({ dataInvoices }) {
   const [statOutstanding, setStatOutstanding] = useState(0);
 
   const filterItem = (stat) => {
-    const newItem = dataInvoices.data.filter((newVal) =>
+    const newItem = dataInv.data.filter((newVal) =>
       newVal.invStatus.includes(stat)
     );
     setItem(newItem);
@@ -33,7 +33,7 @@ export default function Invoices({ dataInvoices }) {
   const handleSearch = (event) => {
     let result;
     const { value } = event.target;
-    result = dataInvoices.data.filter(
+    result = dataInv.data.filter(
       (data) => data.invNumber === parseInt(value, 10)
     );
 
@@ -84,7 +84,7 @@ export default function Invoices({ dataInvoices }) {
               </div>
 
               {/* Account */}
-              <Account />
+              <Account accountPayable={accountPayable} />
             </div>
           </div>
           <div className="mt-3 flex w-full">
@@ -107,7 +107,7 @@ export default function Invoices({ dataInvoices }) {
                                 : `text-gray-400`
                             }`}
                             onClick={() => {
-                              setItem(dataInvoices.data);
+                              setItem(dataInv.data);
                               setOrderStat('all');
                             }}
                           >
@@ -119,7 +119,7 @@ export default function Invoices({ dataInvoices }) {
                                   : 'bg-gray-100'
                               } rounded-md px-1 py-0.5`}
                             >
-                              {dataInvoices.data.length}
+                              {dataInv.data.length}
                             </span>
                           </button>
                         </li>
@@ -239,18 +239,21 @@ export default function Invoices({ dataInvoices }) {
 }
 
 export async function getStaticProps() {
-  try {
-    const res = await fetch(
+  const [accountRes, invRes] = await Promise.all([
+    fetch(
+      'http://159.138.122.186:86/Api/Invoices/GetOutstandingPayables?rcc=MCA&custgroup=NIPPON'
+    ),
+    fetch(
       'http://159.138.122.186:86/Api/Invoices/GetAllInvoices?rcc=MCA&custgroup=NIPPON'
-    );
-    const dataInvoices = await res.json();
+    ),
+  ]);
 
-    return {
-      props: { dataInvoices },
-    };
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Error fetching invoice data', error);
-    return { notFound: true };
-  }
+  const [accountPayable, dataInv] = await Promise.all([
+    accountRes.json(),
+    invRes.json(),
+  ]);
+
+  return {
+    props: { accountPayable, dataInv },
+  };
 }

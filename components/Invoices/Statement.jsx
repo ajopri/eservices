@@ -13,8 +13,8 @@ export default function Statement() {
   return (
     <div className="w-full sm:w-1/6">
       {/* Title */}
-      <div className="py-3 font-semibold text-maha-purple flex items-center">
-        Statement of Accounts{' '}
+      <div className="flex items-center py-3 font-semibold text-maha-purple">
+        Monthly Statements{' '}
         <Tooltip
           content={statement}
           placement="left"
@@ -22,17 +22,13 @@ export default function Statement() {
             width: 'fit-content',
           }}
         >
-          <span className="text-gray-400 ml-2">
+          <span className="ml-2 text-gray-400">
             <FontAwesomeIcon icon={faCircleInfo} />
           </span>
         </Tooltip>
       </div>
-      <div className="bg-white border-[1px] border-gray-200 py-4 px-4">
-        <div className="flex">
-          <div className="bg-gray-200 text-center uppercase text-xs font-semibold text-gray-500 px-2 py-0.5 rounded-full w-full">
-            MONTHLY SOA DOCUMENTS
-          </div>
-        </div>
+      <div className="rounded-md border-[1px] border-gray-200 bg-white py-4 px-4">
+        <div className="flex" />
       </div>
     </div>
   );

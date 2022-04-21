@@ -6,7 +6,7 @@ import { faChevronDown, faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from '@nextui-org/react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const renderDue = (val) => (
   <span
@@ -72,6 +72,51 @@ function RenderLinkInvoice({ link }) {
   }
 }
 
+function InvoiceDetails({ parentExpanded, details }) {
+  const [isExpanded, setIsExpanded] = useState(parentExpanded);
+  useEffect(() => setIsExpanded(() => parentExpanded), [parentExpanded]);
+  return (
+    <tr>
+      <td
+        colSpan={8}
+        className={`${!isExpanded ? 'hidden' : ''} bg-green-50 py-2 px-5`}
+      >
+        <div className="mx-auto w-fit rounded-sm border-[1px]">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b-[1px] border-gray-200 bg-gray-50 text-left uppercase text-gray-400">
+                <th className="rounded-tl-md px-3 py-2">d/O#</th>
+                <th className="px-3 py-2">item</th>
+                <th className="px-3 py-2">p/o#</th>
+                <th className="px-3 py-2">unit price</th>
+                <th className="px-3 py-2">total invoice</th>
+              </tr>
+            </thead>
+            <tbody>
+              {details.map((detail, idx) => (
+                <tr
+                  key={idx}
+                  className="border-b-[1px] border-gray-200 bg-white hover:bg-gray-100"
+                >
+                  <td className="px-3 py-2 text-blue-500">{detail.itemCode}</td>
+                  <td className="px-3 py-2">{detail.itemName}</td>
+                  <td className="px-3 py-2 text-blue-500">{detail.poNumber}</td>
+                  <td className="px-3 py-2">
+                    {detail.unitPrice.toLocaleString()}
+                  </td>
+                  <td className="px-3 py-2">
+                    {detail.lineTotal.toLocaleString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </td>
+    </tr>
+  );
+}
+
 // Item
 function Item({ data }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -115,7 +160,7 @@ function Item({ data }) {
         </td>
       </tr>
 
-      {/* <OrderDetails parentExpanded={isExpanded} details={data.details} /> */}
+      <InvoiceDetails parentExpanded={isExpanded} details={data.details} />
     </>
   );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable array-callback-return */
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
@@ -50,8 +51,8 @@ function TableInv({ invoices }) {
           </tr>
         </thead>
         <tbody>
-          {invoices.data.map((inv) => (
-            <tr key={inv.id} className="hover:bg-gray-100">
+          {invoices.data.map((inv, idx) => (
+            <tr key={idx} className="hover:bg-gray-100">
               <td className="px-3 py-2">
                 <span className="font-semibold text-blue-800">
                   {inv.invNumber}

@@ -27,7 +27,7 @@ export default function Account({ accountPayable }) {
               {detail.currency} Account
             </div>
           </div>
-          <div className="w-full pt-1 text-xl font-bold text-gray-800 sm:text-2xl">
+          <div className="w-full whitespace-nowrap pt-1 text-xl font-bold text-gray-800 sm:text-2xl">
             {detail.currency.slice(0, 2)}$ {detail.payable.toLocaleString()}
           </div>
         </div>
