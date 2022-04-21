@@ -3,14 +3,8 @@
 import Layout from '@components/Layout';
 import OrderByItem from '@components/OrderManagement/OrderByItem';
 import OrderByPo from '@components/OrderManagement/OrderByPo';
-import {
-  faBoxes,
-  faBoxOpen,
-  faCalendarCheck,
-  faCalendarWeek,
-  faCircleInfo,
-  faSearch,
-} from '@fortawesome/free-solid-svg-icons';
+import Summary from '@components/OrderManagement/Summary';
+import { faCircleInfo, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from '@nextui-org/react';
 import { useState } from 'react';
@@ -53,29 +47,29 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
   return (
     <Layout pageTitle="Order Management">
       {/* Title */}
-      <div className="py-3 font-semibold text-maha-purple flex items-center">
+      <div className="flex items-center py-3 font-semibold text-maha-purple">
         All Orders{' '}
         <Tooltip content={tooltips} placement="right">
-          <span className="text-gray-400 ml-2">
+          <span className="ml-2 text-gray-400">
             <FontAwesomeIcon icon={faCircleInfo} />
           </span>
         </Tooltip>
       </div>
       {/* Order */}
-      <div className="flex sm:flex-row flex-col space-x-0 sm:space-x-3 space-y-3 sm:space-y-0 min-h-[34rem]">
-        <div className="basis-4/5 bg-white rounded-sm shadow border-[1px] border-gray-50 py-2 px-3">
+      <div className="flex min-h-[34rem] flex-col space-x-0 space-y-3 sm:flex-row sm:space-x-3 sm:space-y-0">
+        <div className="basis-4/5 rounded-sm border-[1px] border-gray-50 bg-white py-2 px-3 shadow">
           <div className="flex flex-wrap">
             <div className="w-full">
               {/* Filter */}
-              <div className="flex items-center text-xs mb-2 space-x-1">
+              <div className="mb-2 flex items-center space-x-1 text-xs">
                 {/* Tabs */}
-                <div className="w-2/4 flex items-center justify-start font-semibold text-gray-600">
-                  <ul className="flex mb-0 list-none flex-row" role="tablist">
-                    <li className="-mb-px last:mr-0 flex-auto text-center">
+                <div className="flex w-2/4 items-center justify-start font-semibold text-gray-600">
+                  <ul className="mb-0 flex list-none flex-row" role="tablist">
+                    <li className="-mb-px flex-auto text-center last:mr-0">
                       <a
-                        className={`text-xs font-bold px-3 py-3 block leading-normal space-x-2 ${
+                        className={`block space-x-2 px-3 py-3 text-xs font-bold leading-normal ${
                           openTab === 'item'
-                            ? `text-gray-600 border-b-2 border-green-600`
+                            ? `border-b-2 border-green-600 text-gray-600`
                             : `text-gray-400`
                         }`}
                         onClick={(e) => {
@@ -94,17 +88,17 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
                             openTab === 'item'
                               ? 'bg-green-50 text-green-600'
                               : 'bg-gray-100'
-                          } px-1 py-0.5 rounded-md`}
+                          } rounded-md px-1 py-0.5`}
                         >
                           {filteredListItem.length}
                         </span>
                       </a>
                     </li>
-                    <li className="-mb-px last:mr-0 flex-auto text-center">
+                    <li className="-mb-px flex-auto text-center last:mr-0">
                       <a
-                        className={`text-xs font-bold px-3 py-3 block leading-normal space-x-2 ${
+                        className={`block space-x-2 px-3 py-3 text-xs font-bold leading-normal ${
                           openTab === 'po'
-                            ? `text-gray-600 border-b-2 border-green-600`
+                            ? `border-b-2 border-green-600 text-gray-600`
                             : `text-gray-400`
                         }`}
                         onClick={(e) => {
@@ -123,7 +117,7 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
                             openTab === 'po'
                               ? 'bg-green-50 text-green-600'
                               : 'bg-gray-100'
-                          } px-1 py-0.5 rounded-md`}
+                          } rounded-md px-1 py-0.5`}
                         >
                           {filteredListPo.length}
                         </span>
@@ -132,9 +126,9 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
                   </ul>
                 </div>
                 {/* Search */}
-                <div className="w-2/4 flex justify-end invisible sm:visible">
+                <div className="invisible flex w-2/4 justify-end sm:visible">
                   <div>
-                    <span className="pointer-events-none absolute text-gray-300 transform translate-y-1/2">
+                    <span className="pointer-events-none absolute translate-y-1/2 transform text-gray-300">
                       <FontAwesomeIcon icon={faSearch} />
                     </span>
                     <input
@@ -147,13 +141,13 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
                       }}
                       value={searchVal}
                       placeholder="Search"
-                      className="w-full px-3 py-2 placeholder-gray-300 focus:border-green-700 border-b-2 border-gray-300 pl-7 focus:outline-none focus:ring-0 "
+                      className="w-full border-b-2 border-gray-300 px-3 py-2 pl-7 placeholder-gray-300 focus:border-green-700 focus:outline-none focus:ring-0 "
                     />
                   </div>
                 </div>
               </div>
               {/* Content */}
-              <div className="relative flex flex-col min-w-0 break-words bg-white w-full">
+              <div className="relative flex w-full min-w-0 flex-col break-words bg-white">
                 <div className="flex-auto">
                   <div
                     className={openTab === 'item' ? '' : 'hidden'}
@@ -170,84 +164,28 @@ export default function OrderManagement({ dataOrderByPo, dataOrderByItem }) {
           </div>
         </div>
         {/* Summary */}
-        <div className="basis-1/5 bg-white rounded-sm shadow border-[1px] border-gray-50 py-2 px-3">
-          <div className="flex flex-col sm:h-full h-96">
-            <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 sm:px-0 px-32 whitespace-nowrap border-b-[1px] border-gray-200 space-x-7">
-              <span className="bg-red-100 text-red-600 px-3.5 py-3 rounded-full">
-                <FontAwesomeIcon icon={faBoxOpen} fixedWidth />
-              </span>
-              <div>
-                <div className="text-xs font-light text-gray-500">
-                  Unfulfilled
-                </div>
-                <div className="text-2xl font-bold">
-                  {dataOrderByPo.data[0].unfulfilled}
-                </div>
-              </div>
-            </div>
-            <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 sm:px-0 px-32 whitespace-nowrap border-b-[1px] border-gray-200 space-x-7">
-              <span className="bg-maha-purple bg-opacity-10 text-maha-purple px-3.5 py-3 rounded-full">
-                <FontAwesomeIcon icon={faCalendarWeek} fixedWidth />
-              </span>
-              <div>
-                <div className="text-xs font-light text-gray-500">
-                  Scheduled
-                </div>
-                <div className="text-2xl font-bold">
-                  {dataOrderByPo.data[0].scheduled}
-                </div>
-              </div>
-            </div>
-            <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 sm:px-0 px-32 whitespace-nowrap border-b-[1px] border-gray-200 space-x-7">
-              <span className="bg-orange-100 text-orange-600 px-3.5 py-3 rounded-full">
-                <FontAwesomeIcon icon={faBoxes} fixedWidth />
-              </span>
-              <div>
-                <div className="text-xs font-light text-gray-500">
-                  Partially Fulfilled
-                </div>
-                <div className="text-2xl font-bold">
-                  {dataOrderByPo.data[0].partially}
-                </div>
-              </div>
-            </div>
-            <div className="basis-1/4 flex flex-1 items-center h-1/4 mx-4 sm:px-0 px-32 whitespace-nowrap space-x-7">
-              <span className="bg-green-100 text-green-600 px-3.5 py-3 rounded-full">
-                <FontAwesomeIcon icon={faCalendarCheck} fixedWidth />
-              </span>
-              <div>
-                <div className="text-xs font-light text-gray-500">
-                  Fulfilled
-                </div>
-                <div className="text-2xl font-bold">
-                  {dataOrderByPo.data[0].fulfilled}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Summary sum={dataOrderByPo.data[0]} />
       </div>
     </Layout>
   );
 }
 
-export async function getStaticProps() {
-  try {
-    const resPo = await fetch(
+export async function getServerSideProps() {
+  const [poRes, itemRes] = await Promise.all([
+    fetch(
       'http://159.138.122.186:86/Api/Orders/GetOrdersByPO?rcc=MCA&custgroup=NIPPON'
-    );
-    const dataOrderByPo = await resPo.json();
-
-    const resItem = await fetch(
+    ),
+    fetch(
       'http://159.138.122.186:86/Api/Orders/GetOrdersByItem?rcc=MCA&custgroup=NIPPON'
-    );
-    const dataOrderByItem = await resItem.json();
+    ),
+  ]);
 
-    return {
-      props: { dataOrderByPo, dataOrderByItem },
-    };
-  } catch (error) {
-    console.error('Error fetching homepage data', error);
-    return { notFound: true };
-  }
+  const [dataOrderByPo, dataOrderByItem] = await Promise.all([
+    poRes.json(),
+    itemRes.json(),
+  ]);
+
+  return {
+    props: { dataOrderByPo, dataOrderByItem },
+  };
 }

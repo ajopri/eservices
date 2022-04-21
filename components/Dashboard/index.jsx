@@ -1,16 +1,25 @@
 import Openorders from './OpenOrders';
 import TotalOutstanding from './TotalOutstanding';
 
-export default function Dashboard() {
+export default function Dashboard({
+  dataPayable,
+  dataOpenPo,
+  accountPayable,
+  openInv,
+}) {
   return (
-    <div className="flex flex-wrap sm:flex-nowrap sm:space-x-3 space-x-0">
+    <div className="flex flex-wrap space-x-0 sm:flex-nowrap sm:space-x-3">
       {/* Open Order */}
-      <div className="sm:w-7/12 w-full">
-        <Openorders />
+      <div className="w-full sm:w-7/12">
+        <Openorders dataOpenPo={dataOpenPo} />
       </div>
       {/* Total Outstanding */}
-      <div className="sm:w-5/12 w-full sm:mt-0 mt-5">
-        <TotalOutstanding />
+      <div className="mt-5 w-full sm:mt-0 sm:w-5/12">
+        <TotalOutstanding
+          dataPayable={dataPayable}
+          accountPayable={accountPayable}
+          openInv={openInv}
+        />
       </div>
     </div>
   );

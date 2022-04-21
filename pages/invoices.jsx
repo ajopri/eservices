@@ -50,16 +50,16 @@ export default function Invoices({ dataInvoices }) {
 
   return (
     <Layout pageTitle="Invoices">
-      <div className="flex flex-wrap sm:flex-nowrap sm:space-x-3 space-x-0">
-        <div className="w-full sm:w-5/6 flex flex-col sm:flex-nowrap flex-wrap">
-          <div className="flex flex-wrap sm:flex-nowrap space-x-3">
+      <div className="flex flex-wrap space-x-0 sm:flex-nowrap sm:space-x-3">
+        <div className="flex w-full flex-col flex-wrap sm:w-5/6 sm:flex-nowrap">
+          <div className="flex flex-wrap space-x-3 sm:flex-nowrap">
             {/* Profile */}
             <div className="w-full sm:w-3/5">
               {/* Title */}
-              <div className="py-3 font-semibold text-maha-purple flex items-center">
+              <div className="flex items-center py-3 font-semibold text-maha-purple">
                 Profile{' '}
                 <Tooltip content={profile} placement="right">
-                  <span className="text-gray-400 ml-2">
+                  <span className="ml-2 text-gray-400">
                     <FontAwesomeIcon icon={faCircleInfo} />
                   </span>
                 </Tooltip>
@@ -71,13 +71,13 @@ export default function Invoices({ dataInvoices }) {
             {/* Total outstanding */}
             <div className="w-full sm:w-2/5">
               {/* Title */}
-              <div className="py-3 font-semibold text-maha-purple flex items-center">
+              <div className="flex items-center py-3 font-semibold text-maha-purple">
                 Total Outstanding Payables{' '}
                 <Tooltip
                   content="Only outstanding & overdue invoices are displayed."
                   placement="top"
                 >
-                  <span className="text-gray-400 ml-2">
+                  <span className="ml-2 text-gray-400">
                     <FontAwesomeIcon icon={faCircleInfo} />
                   </span>
                 </Tooltip>
@@ -87,23 +87,23 @@ export default function Invoices({ dataInvoices }) {
               <Account />
             </div>
           </div>
-          <div className="flex w-full mt-3">
-            <div className="container bg-white rounded-md shadow-sm p-4 border-[1px] border-gray-200">
+          <div className="mt-3 flex w-full">
+            <div className="container rounded-md border-[1px] border-gray-200 bg-white p-4 shadow-sm">
               <div className="flex flex-wrap">
                 <div className="w-full">
                   {/* Filter */}
                   <div className="flex items-center text-xs">
-                    <div className="w-2/4 flex items-center justify-start font-semibold text-gray-600">
+                    <div className="flex w-2/4 items-center justify-start font-semibold text-gray-600">
                       <ul
-                        className="flex items-center mb-0 list-none pb-3 flex-row"
+                        className="mb-0 flex list-none flex-row items-center pb-3"
                         role="tablist"
                       >
-                        <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                        <li className="-mb-px mr-2 flex-auto text-center last:mr-0">
                           <button
                             type="button"
-                            className={`text-xs font-bold px-5 py-3 block leading-normal ${
+                            className={`block px-5 py-3 text-xs font-bold leading-normal ${
                               orderStat === 'all'
-                                ? `text-gray-600 border-b-2 border-green-600`
+                                ? `border-b-2 border-green-600 text-gray-600`
                                 : `text-gray-400`
                             }`}
                             onClick={() => {
@@ -117,18 +117,18 @@ export default function Invoices({ dataInvoices }) {
                                 orderStat === 'all'
                                   ? 'bg-green-50 text-green-600'
                                   : 'bg-gray-100'
-                              } px-1 py-0.5 rounded-md`}
+                              } rounded-md px-1 py-0.5`}
                             >
                               {dataInvoices.data.length}
                             </span>
                           </button>
                         </li>
-                        <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                        <li className="-mb-px mr-2 flex-auto text-center last:mr-0">
                           <button
                             type="button"
-                            className={`text-xs font-bold px-5 py-3 block leading-normal ${
+                            className={`block px-5 py-3 text-xs font-bold leading-normal ${
                               orderStat === 'OverDue'
-                                ? `text-gray-600 border-b-2 border-green-600`
+                                ? `border-b-2 border-green-600 text-gray-600`
                                 : `text-gray-400`
                             }`}
                             onClick={() => {
@@ -142,18 +142,18 @@ export default function Invoices({ dataInvoices }) {
                                 orderStat === 'OverDue'
                                   ? 'bg-green-50 text-green-600'
                                   : 'bg-gray-100'
-                              } px-1 py-0.5 rounded-md`}
+                              } rounded-md px-1 py-0.5`}
                             >
                               {statOverdue.length}
                             </span>
                           </button>
                         </li>
-                        <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                        <li className="-mb-px mr-2 flex-auto text-center last:mr-0">
                           <button
                             type="button"
-                            className={`text-xs font-bold px-5 py-3 block leading-normal ${
+                            className={`block px-5 py-3 text-xs font-bold leading-normal ${
                               orderStat === 'Outstanding'
-                                ? `text-gray-600 border-b-2 border-green-600`
+                                ? `border-b-2 border-green-600 text-gray-600`
                                 : `text-gray-400`
                             }`}
                             onClick={() => {
@@ -167,18 +167,18 @@ export default function Invoices({ dataInvoices }) {
                                 orderStat === 'Outstanding'
                                   ? 'bg-green-50 text-green-600'
                                   : 'bg-gray-100'
-                              } px-1 py-0.5 rounded-md`}
+                              } rounded-md px-1 py-0.5`}
                             >
                               {statOutstanding.length}
                             </span>
                           </button>
                         </li>
-                        <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                        <li className="-mb-px mr-2 flex-auto text-center last:mr-0">
                           <button
                             type="button"
-                            className={`text-xs font-bold px-5 py-3 block leading-normal ${
+                            className={`block px-5 py-3 text-xs font-bold leading-normal ${
                               orderStat === 'Paid'
-                                ? `text-gray-600 border-b-2 border-green-600`
+                                ? `border-b-2 border-green-600 text-gray-600`
                                 : `text-gray-400`
                             }`}
                             onClick={() => {
@@ -192,7 +192,7 @@ export default function Invoices({ dataInvoices }) {
                                 orderStat === 'Paid'
                                   ? 'bg-green-50 text-green-600'
                                   : 'bg-gray-100'
-                              } px-1 py-0.5 rounded-md`}
+                              } rounded-md px-1 py-0.5`}
                             >
                               {statPaid.length}
                             </span>
@@ -200,9 +200,9 @@ export default function Invoices({ dataInvoices }) {
                         </li>
                       </ul>
                     </div>
-                    <div className="w-2/4 flex justify-end">
+                    <div className="flex w-2/4 justify-end">
                       <div className="pb-3">
-                        <span className="pointer-events-none absolute text-gray-300 transform translate-y-1/2">
+                        <span className="pointer-events-none absolute translate-y-1/2 transform text-gray-300">
                           <FontAwesomeIcon icon={faSearch} />
                         </span>
                         <input
@@ -211,13 +211,13 @@ export default function Invoices({ dataInvoices }) {
                           id="search"
                           onChange={(event) => handleSearch(event)}
                           placeholder="Search"
-                          className="w-full px-3 py-2 placeholder-gray-300 focus:border-green-700 border-b-2 border-gray-300 pl-7 focus:outline-none focus:ring-0 "
+                          className="w-full border-b-2 border-gray-300 px-3 py-2 pl-7 placeholder-gray-300 focus:border-green-700 focus:outline-none focus:ring-0 "
                         />
                       </div>
                     </div>
                   </div>
                   {/* Invoices */}
-                  <div className="flex flex-col min-w-0 break-words bg-white w-full">
+                  <div className="flex w-full min-w-0 flex-col break-words bg-white">
                     <div className="flex-auto">
                       <div className="tab-content tab-space">
                         <div>
@@ -249,6 +249,7 @@ export async function getStaticProps() {
       props: { dataInvoices },
     };
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Error fetching invoice data', error);
     return { notFound: true };
   }

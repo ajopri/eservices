@@ -4,17 +4,21 @@ import { Tooltip } from '@nextui-org/react';
 import Accountpayable from './AccountPayable';
 import Account from './AccountPayable/Account';
 
-export default function TotalOutstanding() {
+export default function TotalOutstanding({
+  dataPayable,
+  accountPayable,
+  openInv,
+}) {
   return (
     <>
       {/* Title */}
-      <div className="py-3 font-semibold text-maha-purple flex items-center">
+      <div className="flex items-center py-3 font-semibold text-maha-purple">
         Total Outstanding Payables{' '}
         <Tooltip
           content="Only outstanding & overdue invoices are displayed."
           placement="top"
         >
-          <span className="text-gray-400 ml-2">
+          <span className="ml-2 text-gray-400">
             <FontAwesomeIcon icon={faCircleInfo} />
           </span>
         </Tooltip>
@@ -23,11 +27,11 @@ export default function TotalOutstanding() {
       {/* Content */}
       <div className="flex flex-col space-y-4">
         {/* Account */}
-        <Account />
+        <Account accountPayable={accountPayable} />
 
         {/* Account Payable */}
-        <div className="container bg-white rounded-md shadow h-auto p-4 border-[1px] border-gray-200">
-          <Accountpayable />
+        <div className="container h-[28rem] rounded-md border-[1px] border-gray-200 bg-white p-4 shadow">
+          <Accountpayable dataPayable={dataPayable} openInv={openInv} />
         </div>
       </div>
     </>

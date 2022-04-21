@@ -2,7 +2,7 @@
 import { ResponsiveBar } from '@nivo/bar';
 
 export default function Bar({ datas, cur }) {
-  const amount = `amount${cur}`;
+  // const amount = `amount`;
   const ValueOutside = ({ bars }) =>
     bars.map((bar) => {
       const {
@@ -16,11 +16,11 @@ export default function Bar({ datas, cur }) {
       return (
         <g key={key} transform={`translate(${x}, ${y})`}>
           <text
-            transform={`translate(${width + 40}, ${height / 1.6})`}
+            transform={`translate(${width + 45}, ${height / 1.6})`}
             textAnchor="middle"
             fontSize="11px"
           >
-            {cur}$ {value}
+            {cur} ${value}
           </text>
         </g>
       );
@@ -31,7 +31,7 @@ export default function Bar({ datas, cur }) {
         width={500}
         height={140}
         data={datas}
-        keys={[amount]}
+        keys={['amount']}
         indexBy="day"
         margin={{ top: 0, right: 80, bottom: 0, left: 0 }}
         valueScale={{ type: 'linear' }}
@@ -48,7 +48,7 @@ export default function Bar({ datas, cur }) {
         enableGridY={false}
         role="application"
         tooltip={({ label, value }) => (
-          <span className="text-xs bg-gray-50 rounded-md py-2 px-2">
+          <span className="rounded-md bg-gray-50 py-2 px-2 text-xs">
             {label}:
             <strong>
               {' '}

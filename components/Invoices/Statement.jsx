@@ -15,7 +15,13 @@ export default function Statement() {
       {/* Title */}
       <div className="py-3 font-semibold text-maha-purple flex items-center">
         Statement of Accounts{' '}
-        <Tooltip content={statement} placement="bottom" keepMounted>
+        <Tooltip
+          content={statement}
+          placement="left"
+          css={{
+            width: 'fit-content',
+          }}
+        >
           <span className="text-gray-400 ml-2">
             <FontAwesomeIcon icon={faCircleInfo} />
           </span>

@@ -18,11 +18,11 @@ const renderCell = (val) => (
     key={val}
     className={`${
       val === 'Open'
-        ? 'bg-blue-100 text-blue-500 border-2 border-blue-300'
+        ? 'border-2 border-blue-300 bg-blue-100 text-blue-500'
         : val === 'Scheduled'
-        ? 'bg-purple-100 text-maha-purple border-2 border-purple-300'
-        : 'bg-gray-100 text-gray-500 border-2 border-gray-300'
-    }  px-2 py-0.5 rounded-md mr-1 font-semibold`}
+        ? 'border-2 border-purple-300 bg-purple-100 text-maha-purple'
+        : 'border-2 border-gray-300 bg-gray-100 text-gray-500'
+    }  mr-1 rounded-md px-2 py-0.5 font-semibold`}
   >
     {val}
   </span>
@@ -35,11 +35,11 @@ function OrderDetails({ parentExpanded, details }) {
     <span
       className={`${
         val.toLowerCase() === 'unfulfilled'
-          ? 'bg-red-100 text-red-500 border-[1px] border-red-300'
+          ? 'border-[1px] border-red-300 bg-red-100 text-red-500'
           : val.toLowerCase() === 'fulfilled'
-          ? 'bg-green-100 text-green-500 border-[1px] border-green-300'
-          : 'bg-orange-100 text-orange-500 border-[1px] border-orange-300'
-      }  px-2 py-0.5 rounded-md mr-1 font-semibold text-[0.6rem]`}
+          ? 'border-[1px] border-green-300 bg-green-100 text-green-500'
+          : 'border-[1px] border-orange-300 bg-orange-100 text-orange-500'
+      }  mr-1 rounded-md px-2 py-0.5 text-[0.6rem] font-semibold`}
     >
       {val}
     </span>
@@ -51,9 +51,16 @@ function OrderDetails({ parentExpanded, details }) {
     const poDate = `${
       date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()
     }-${
-      date.getMonth() < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
+      date.getMonth() < 9 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
     }-${date.getFullYear()}`;
-    return <span>{poDate}</span>;
+    return poDate;
+  }
+  function renderColor(str) {
+    const d = str.slice(0, 10);
+    const date = new Date(d);
+    const today = new Date();
+    const color = date > today ? 'text-maha-purple font-semibold' : '';
+    return color;
   }
 
   return (
@@ -65,44 +72,50 @@ function OrderDetails({ parentExpanded, details }) {
         <div className="rounded-sm border-[1px]">
           <table className="w-full">
             <thead>
-              <tr className="uppercase bg-gray-50 text-gray-400 border-b-[1px] border-gray-200">
-                <th className="px-3 py-2 rounded-tl-md">P/O#</th>
+              <tr className="border-b-[1px] border-gray-200 bg-gray-50 text-left uppercase text-gray-400">
+                <th className="rounded-tl-md px-3 py-2">P/O#</th>
                 <th className="px-3 py-2">po received</th>
                 <th className="px-3 py-2">open qty</th>
                 <th className="px-3 py-2">total qty</th>
                 <th className="px-3 py-2">unit price</th>
                 <th className="px-3 py-2">total invoice</th>
                 <th className="px-3 py-2">item status</th>
-                <th className="px-3 py-2 rounded-tr-md">latest activity</th>
+                <th className="rounded-tr-md px-3 py-2">latest activity</th>
               </tr>
             </thead>
             <tbody>
               {details.map((detail, idx) => (
                 <tr
                   key={idx}
-                  className="bg-white border-b-[1px] border-gray-200 hover:bg-gray-100"
+                  className="border-b-[1px] border-gray-200 bg-white hover:bg-gray-100"
                 >
-                  <td className="px-3 py-2">{detail.poNumber}</td>
+                  <td className="px-3 py-2 text-blue-500">{detail.poNumber}</td>
                   <td className="px-3 py-2">
                     {renderDateReceive(detail.poReceived)}
                   </td>
                   <td className="px-3 py-2">
-                    {detail.openQty.toLocaleString()}
+                    {`${detail.openQty.toLocaleString()} ${detail.uoM}`}
                   </td>
                   <td className="px-3 py-2">
-                    {detail.totalQty.toLocaleString()}
-                  </td>
-                  <td className="px-3 py-2">
-                    {detail.unitPrice.toLocaleString()}
+                    {`${detail.totalQty.toLocaleString()} ${detail.uoM}`}
                   </td>
                   <td className="px-3 py-2">
                     {`${
                       detail.currency
-                    } $${detail.totalInvoice.toLocaleString()}/${detail.uoM}`}
+                    } $${detail.unitPrice.toLocaleString()}/${detail.uoM}`}
+                  </td>
+                  <td className="px-3 py-2">
+                    {`${
+                      detail.currency
+                    } $${detail.totalInvoice.toLocaleString()}`}
                   </td>
                   <td className="px-3 py-2">{renderStat(detail.itemStatus)}</td>
-                  <td className="px-3 py-2">
-                    {`${detail.activityQty}${detail.uoM} ${detail.activity}`}
+                  <td
+                    className={`px-3 py-2 ${renderColor(detail.activityDate)}`}
+                  >
+                    {`${renderDateReceive(detail.activityDate)} - ${
+                      detail.activityQty
+                    }${detail.uoM} ${detail.activity}`}
                   </td>
                 </tr>
               ))}
@@ -118,7 +131,7 @@ function RenderLinkTds({ link }) {
   if (link) {
     return (
       <Link href={link} passHref>
-        <span className="bg-green-100 rounded text-green-700 font-semibold px-2 py-1 cursor-pointer whitespace-nowrap">
+        <span className="cursor-pointer whitespace-nowrap rounded bg-green-100 px-2 py-1 font-semibold text-green-700">
           <FontAwesomeIcon icon={faDownload} /> TDS
         </span>
       </Link>
@@ -129,7 +142,7 @@ function RenderLinksds({ link }) {
   if (link) {
     return (
       <Link href={link} passHref>
-        <span className="bg-green-100 rounded text-green-700 font-semibold px-2 py-1 cursor-pointer whitespace-nowrap">
+        <span className="cursor-pointer whitespace-nowrap rounded bg-green-100 px-2 py-1 font-semibold text-green-700">
           <FontAwesomeIcon icon={faDownload} /> SDS
         </span>
       </Link>
@@ -151,10 +164,10 @@ function Item({ data }) {
         <td className="px-6 py-1.5 text-left">
           <Tooltip content="Details" placement="left">
             <button
-              className={` font-bold py-2 px-2 rounded inline-flex items-center ${
+              className={` inline-flex items-center rounded py-2 px-2 font-bold ${
                 isExpanded
-                  ? 'text-white bg-green-400 hover:bg-green-100 hover:text-gray-600'
-                  : 'text-gray-400 bg-gray-100 hover:bg-gray-300'
+                  ? 'bg-green-400 text-white hover:bg-green-100 hover:text-gray-600'
+                  : 'bg-gray-100 text-gray-400 hover:bg-gray-300'
               }`}
               onClick={handleClick}
             >
@@ -167,7 +180,7 @@ function Item({ data }) {
         </td>
         <td className="px-6 py-1.5 text-left">{data.itemName}</td>
         <td className="px-6 py-1.5 text-left">{renderCell(data.poStatus)}</td>
-        <td className="px-6 py-1.5 text-left whitespace-nowrap">
+        <td className="whitespace-nowrap px-6 py-1.5 text-left">
           <RenderLinkTds link={data.tdsLink} />{' '}
           <RenderLinksds link={data.sdsLink} />
         </td>
@@ -180,19 +193,19 @@ function Item({ data }) {
 
 export default function OrderByItem({ datas }) {
   return (
-    <div className="flex flex-col rounded-lg h-[64vh]">
-      <div className="flex-grow overflow-auto border-[1px] rounded-md">
+    <div className="flex h-[64vh] flex-col rounded-lg">
+      <div className="flex-grow overflow-auto rounded-md border-[1px]">
         <table className="relative w-full text-xs">
           <thead>
-            <tr className="uppercase text-left">
-              <th className="sticky top-0 px-6 py-3 text-gray-400 bg-gray-100" />
-              <th className="sticky top-0 px-6 py-3 text-gray-400 bg-gray-100">
+            <tr className="text-left uppercase">
+              <th className="sticky top-0 bg-gray-100 px-6 py-3 text-gray-400" />
+              <th className="sticky top-0 bg-gray-100 px-6 py-3 text-gray-400">
                 name
               </th>
-              <th className="sticky top-0 px-6 py-3 text-gray-400 bg-gray-100">
+              <th className="sticky top-0 bg-gray-100 px-6 py-3 text-gray-400">
                 status
               </th>
-              <th className="sticky top-0 px-6 py-3 text-gray-400 bg-gray-100">
+              <th className="sticky top-0 bg-gray-100 px-6 py-3 text-gray-400">
                 download
               </th>
             </tr>

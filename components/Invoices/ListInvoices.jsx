@@ -8,21 +8,6 @@ import { Tooltip } from '@nextui-org/react';
 import Link from 'next/link';
 import { useState } from 'react';
 
-const renderStatus = (val) => (
-  <span
-    key={val}
-    className={`${
-      val === 'Open'
-        ? 'bg-blue-100 text-blue-500 border-2 border-blue-300'
-        : val === 'Scheduled'
-        ? 'bg-purple-100 text-maha-purple border-2 border-purple-300'
-        : 'bg-gray-100 text-gray-500 border-2 border-gray-300'
-    }  px-2 py-0.5 rounded-md mr-1 font-semibold`}
-  >
-    {val}
-  </span>
-);
-
 const renderDue = (val) => (
   <span
     key={val}
@@ -32,11 +17,37 @@ const renderDue = (val) => (
         : val === 'Scheduled'
         ? 'text-maha-purple'
         : 'text-gray-500'
-    }  px-2 py-0.5 rounded-md mr-1 font-semibold`}
+    }  mr-1 rounded-md px-2 py-0.5 font-semibold`}
   >
     {val}
   </span>
 );
+
+function renderStatus(stat) {
+  let className;
+  switch (stat.toLowerCase()) {
+    case 'paid':
+      className = 'border-green-300 bg-green-100 text-green-500';
+      break;
+    case 'overdue':
+      className = 'border-red-300 bg-red-100 text-red-500';
+      break;
+    case 'outstanding':
+      className = 'border-orange-300 bg-orange-100 text-orange-500';
+      break;
+    default:
+      className = 'border-gray-300 bg-gray-100 text-gray-500';
+      break;
+  }
+
+  return (
+    <span
+      className={`${className} mr-1 rounded-md border-2 px-2 py-0.5 font-semibold`}
+    >
+      {stat}
+    </span>
+  );
+}
 
 function renderDate(str) {
   const d = str.slice(0, 10);
@@ -53,7 +64,7 @@ function RenderLinkInvoice({ link }) {
   if (link) {
     return (
       <Link href={link} passHref>
-        <span className="bg-green-100 uppercase rounded text-green-700 font-semibold px-2 py-1 cursor-pointer whitespace-nowrap">
+        <span className="cursor-pointer whitespace-nowrap rounded bg-green-100 px-2 py-1 font-semibold uppercase text-green-700">
           <FontAwesomeIcon icon={faDownload} /> invoice
         </span>
       </Link>
@@ -75,10 +86,10 @@ function Item({ data }) {
         <td className="px-6 py-1.5 text-left">
           <Tooltip content="Details" placement="left">
             <button
-              className={` font-bold py-2 px-2 rounded inline-flex items-center ${
+              className={` inline-flex items-center rounded py-2 px-2 font-bold ${
                 isExpanded
-                  ? 'text-white bg-green-400 hover:bg-green-100 hover:text-gray-600'
-                  : 'text-gray-400 bg-gray-100 hover:bg-gray-300'
+                  ? 'bg-green-400 text-white hover:bg-green-100 hover:text-gray-600'
+                  : 'bg-gray-100 text-gray-400 hover:bg-gray-300'
               }`}
               onClick={handleClick}
             >
@@ -99,7 +110,7 @@ function Item({ data }) {
         <td className="px-6 py-1.5 text-left">
           {data.amountDue.toLocaleString()}
         </td>
-        <td className="px-6 py-1.5 text-left whitespace-nowrap">
+        <td className="whitespace-nowrap px-6 py-1.5 text-left">
           <RenderLinkInvoice link="#" />{' '}
         </td>
       </tr>
@@ -111,31 +122,31 @@ function Item({ data }) {
 
 export default function Listinvoices({ datas }) {
   return (
-    <div className="flex flex-col rounded-lg h-[64vh]">
-      <div className="flex-grow overflow-auto border-[1px] rounded-md">
+    <div className="flex h-[64vh] flex-col rounded-lg">
+      <div className="flex-grow overflow-auto rounded-md border-[1px]">
         <table className="relative w-full text-xs">
           <thead>
-            <tr className="uppercase text-left">
-              <th className="sticky top-0 px-6 py-3 text-gray-400 bg-gray-100" />
-              <th className="sticky top-0 px-6 py-3 text-gray-400 bg-gray-100">
+            <tr className="text-left uppercase">
+              <th className="sticky top-0 bg-gray-100 px-6 py-3 text-gray-400" />
+              <th className="sticky top-0 bg-gray-100 px-6 py-3 text-gray-400">
                 invoice#
               </th>
-              <th className="sticky top-0 px-6 py-3 text-gray-400 bg-gray-100">
+              <th className="sticky top-0 bg-gray-100 px-6 py-3 text-gray-400">
                 issue date
               </th>
-              <th className="sticky top-0 px-6 py-3 text-gray-400 bg-gray-100">
+              <th className="sticky top-0 bg-gray-100 px-6 py-3 text-gray-400">
                 due date
               </th>
-              <th className="sticky top-0 px-6 py-3 text-gray-400 bg-gray-100">
+              <th className="sticky top-0 bg-gray-100 px-6 py-3 text-gray-400">
                 status
               </th>
-              <th className="sticky top-0 px-6 py-3 text-gray-400 bg-gray-100">
+              <th className="sticky top-0 bg-gray-100 px-6 py-3 text-gray-400">
                 due in
               </th>
-              <th className="sticky top-0 px-6 py-3 text-gray-400 bg-gray-100">
+              <th className="sticky top-0 bg-gray-100 px-6 py-3 text-gray-400">
                 amount due
               </th>
-              <th className="sticky top-0 px-6 py-3 text-gray-400 bg-gray-100">
+              <th className="sticky top-0 bg-gray-100 px-6 py-3 text-gray-400">
                 download
               </th>
             </tr>
